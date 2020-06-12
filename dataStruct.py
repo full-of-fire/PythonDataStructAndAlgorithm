@@ -22,9 +22,9 @@ class Queue:
         self.items = []
     
     def enqueue(self,item):
-        self.items.append(item)
+        self.items.insert(0,item)
     def dequeeu(self):
-        self.items[0]
+        return self.items.pop()
     def isEmpty(self):
         return self.items == []
     def size(self):
