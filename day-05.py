@@ -80,6 +80,57 @@ def tree(lineLen):
         t.right(20)
         t.backward(lineLen)
 
+# 最小硬币数：1.最小问题当找钱直接为硬币数是个数为1 2.如何缩减规模 3.递归调用自身减少规模 4.贪心策略但是效率很低
+def minCoins(changes,money):
+    # 1.最小问题，如果要找的钱刚刚是硬币的数目就直接返回
+    if money in changes:
+        return 1
+    else:
+        # 2.递归调用减少规模
+        # 找出最小值
+        # minNum = 99999
+        for change in [ item for item in changes if item <= money]:
+            ret = 1 + minCoins(changes,money - change)
+            if ret < minNum:
+                minNum =ret
+        return minNum
+# 如何优化递归调用的解法：消除重复计算问题，采来缓存计算结果， 
+def bestMinCoins(coinValueList,change,knowReuslts):
+    if change in coinValueList:
+        knowReuslts[change] = 1
+        return 1
+    elif knowReuslts[change] > 1:
+        return knowReuslts[change]
+    else:
+        # 递归调用
+        minNum = 99999
+        for coin in [ item for item in coinValueList if item <= change]:
+            ret = 1 + bestMinCoins(coinValueList,change - coin,knowReuslts)
+            if ret < minNum:
+                minNum =ret
+                knowReuslts[change] = minNum
+        return minNum
+
+def testMinCoins():
+        # 1.测试最小硬币数
+    startTime = time.time()
+    ret =  minCoins([5,1,10,25],63)
+    endTime = time.time()
+    costTime = endTime - startTime
+    # time.clock()
+    print(ret)
+    print("cost time === {}".format(costTime))
+
+def testBestMinCoins():
+    startTime = time.time()
+    ret =  bestMinCoins([1,5,10,25],63,[0]*64)
+    endTime = time.time()
+    costTime = endTime - startTime
+    # time.clock()
+    print(ret)
+    print("cost time === {}".format(costTime))
+
+
     
 
 if __name__ == "__main__":
@@ -89,6 +140,9 @@ if __name__ == "__main__":
     # drawSpiral(200)
     # time.sleep(200)
 
-    t.left(90)
-    tree(15)
-    time.sleep(10)
+    # t.left(90)
+    # tree(15)
+    # time.sleep(10)
+    # pass
+    testBestMinCoins()
+
