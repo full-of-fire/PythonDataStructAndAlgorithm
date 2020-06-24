@@ -130,6 +130,49 @@ def testBestMinCoins():
     print(ret)
     print("cost time === {}".format(costTime))
 
+# 0,1 背包问题，在n个物品中，分别有重量（w）和价值（v）,在容量有限(C)的背包，如何挑选物品使其价值最大，
+# 方程式的推导B(k,C)的解释，指的是挑选k件物品，背包容量为C的最大价值，
+# 1. 当k或者C为 0 挑选的价值只能为0直接返回
+# 2. 如果挑选k的w大于C，那就是k件物品不能被挑选，其最大价值为B(k-1,C)
+# 3. 如果挑选k的w小于等于C，分两种情况：1.挑选：如果被挑选其价值为B(k-1,C-w) + vk 2.不挑选其价值为B(k-1,C)
+def bagMaxValue():
+    # 1.背包的重量和价值
+    wr  =[
+        None,
+        {"w":2,"v":3},
+        {"w":3,"v":4},
+        {"w":4,"v":8},
+        {"w":5,"v":8},
+        {"w":9,"v":10}
+    ]
+    # 2. 背包最大容量
+    C = 20
+    # 3.构建二维数组
+    m = []
+    for i in range(len(wr)):
+        arr = []
+        for j in range(20+1):
+            arr.append(0)
+        m.append(arr)
+    # 4.填写表格
+    for k in range(1,len(wr)):
+        for c in range(1,C+1):
+            # 如果装不下k，则其实价值为
+            if wr[k]['w'] > c:
+                m[k][c] = m[k-1][c]
+            else:
+                # 如果装的下，分两种情况，挑选和非挑选，然后选取最大值
+                # 1.未挑选
+                unSelect = m[k-1][c]
+                # 2.挑选
+                select = m[k-1][c-wr[k]['w']] + wr[k]['v']
+                m[k][c] = max(unSelect,select)
+    
+    print(m)
+    print(m[len(wr)-1][C])
+    
+
+
 
     
 
@@ -144,5 +187,7 @@ if __name__ == "__main__":
     # tree(15)
     # time.sleep(10)
     # pass
-    testBestMinCoins()
+    # testBestMinCoins()
+
+    bagMaxValue()
 
