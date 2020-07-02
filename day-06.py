@@ -33,8 +33,39 @@ def searSortList(sortList,item):
                 index = index + 1
     return found
 
+# 顺序表的二分查找
+def binarySearch(sortList,item):
+    first = 0
+    last = len(sortList) - 1
+    found = False
+
+    while first <= last and not found:
+        midIndex = int((first + last) / 2)
+        if sortList[midIndex] == item:
+            found = True
+        else:
+            if sortList[midIndex] > item:
+                last = midIndex - 1
+            else:
+                first = midIndex + 1
+
+    return found
+# 二分查找的递归实现：1.最小结束条件，如果是空列表直接返回 2.如何缩小规模 3.调用自身缩小规模
+def binarySearchV2(sortList,item):
+    midIndex = len(sortList) // 2
+    if len(sortList) == 0:
+        return False
+    elif sortList[midIndex] == item:
+        return True
+    else:
+        if sortList[midIndex] > item:
+            return binarySearchV2(sortList[:midIndex],item)
+        else:
+            return binarySearchV2(sortList[midIndex+1:],item)
+
 
 if __name__ == "__main__":
 
     nums = [1,3,5,7,9]
-    print(searchUnSortList(nums,6))
+    # print(binarySearch(nums,8))
+    print(binarySearchV2(nums,8))
