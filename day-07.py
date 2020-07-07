@@ -39,6 +39,36 @@ def selectionSort(nums):
         nums[maxNumIndex] = nums[passNum]
         nums[passNum] = tmp
 
+# 插入排序：
+# 核心思想：将列表分为有序列表和无序列表，每次从无序列表中取出一个元素和已经排序的列表进行对比
+# 找到其合适的位置然后交换
+# 由于移动元素仅包含一次赋值操作，所以其性能较好
+# 怎么优化？：越有序比对的次数就越少
+def insertSort(nums):
+    for index in range(1,len(nums)):   
+        currentValue = nums[index]
+        positon = index - 1
+        # 从后往前遍历对比,如果发现元素比他大就往后移动一位
+        while positon >=0 and nums[positon] > currentValue:
+            nums[positon+1] = nums[positon]
+            positon -= 1
+        nums[positon+1] = currentValue
+
+
+# 思想：将序列分为多个子序列，然后分别进行插入排序
+# 其时间复杂度在O(n)~O(n2)之间
+def shellSort(nums):
+    gap = len(nums) // 2
+
+    while gap > 0 :
+        print(gap)
+        for cur in range(gap,len(nums)):
+            i = cur
+            while i >= gap and nums[i-gap] > nums[i]:
+                nums[i - gap], nums[i] = nums[i], nums[i-gap]
+                i -= gap
+        gap = gap // 2
+
     
 
 
@@ -47,5 +77,7 @@ if __name__ == "__main__":
     nums = [19,13,11,5,4,3,2]
     # bubbleSort(nums)
     # advanceBubbleSort(nums)
-    selectionSort(nums)
+    # selectionSort(nums)
+    # insertSort(nums)
+    shellSort(nums)
     print(nums)
