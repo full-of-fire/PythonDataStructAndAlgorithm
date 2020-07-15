@@ -69,6 +69,33 @@ def shellSort(nums):
                 i -= gap
         gap = gap // 2
 
+# 归并排序：先将数组进行拆分，直到只有一个元素，就当已经排序好了，然后对排序结果进行合并
+def mergeSort(nums):
+    if len(nums) == 1:
+        return nums
+    midIndex = int(len(nums) / 2)
+
+    left = mergeSort(nums[:midIndex])
+    right = mergeSort(nums[midIndex:])
+
+    # 合并
+    i = 0 
+    j = 0
+    results = []
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            results.append(left[i])
+            i += 1
+        else:
+            results.append(right[j])
+            j += 1
+    
+    results.extend(left[i:])
+    results.extend(right[j:])
+    return results
+
+
+
     
 
 
@@ -79,5 +106,7 @@ if __name__ == "__main__":
     # advanceBubbleSort(nums)
     # selectionSort(nums)
     # insertSort(nums)
-    shellSort(nums)
+    # shellSort(nums)
+    ret = mergeSort(nums)
+    print(ret)
     print(nums)

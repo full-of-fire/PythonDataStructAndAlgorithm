@@ -138,6 +138,42 @@ class UnSortedList:
 
 
         
+# 二叉树
+class BinaryTree:
+    def __init__ (self,value):
+        self.value = value
+        self.leftChild = None
+        self.rightChild = None
+    
+    def setRootValue(self,value):
+        self.value = value
+    
+    def getRootValue(self):
+        return self.value
 
+    
+    def insertLeftChild(self,value):
+        if self.leftChild is None:
+            # 如果为就新建一个节点进行赋值
+            newNode = BinaryTree(value)
+            self.leftChild = newNode
+        else:
+            newNode = BinaryTree(value)
+            newNode.leftChild = self.leftChild
+            self.leftChild = newNode
 
+    def insertRight(self,value):
+        if self.rightChild is None:
+            newNode = BinaryTree(value)
+            self.rightChild = newNode
+        else:
+            newNode = BinaryTree(value)
+            newNode.rightChild = self.rightChild
+            self.rightChild = newNode
+    
+    def getRightChild(self):
+        return self.rightChild
+    
+    def getLeftChild(self):
+        return self.leftChild
         
