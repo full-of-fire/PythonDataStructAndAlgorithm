@@ -229,11 +229,11 @@ class Graph:
         return n in self.vertList
     
     def addEdge(self,f,to,weight=0):
-        if  f not in self.vertList
+        if  f not in self.vertList:
             self.addVertex(f)
         if to not in self.vertList:
             self.addVertex(to)
-        self.vertList[f].addNeighbor(self.vertList[t],weight)
+        self.vertList[f].addNeighbor(self.vertList[to],weight)
 
     def getVertices(self):
         return self.vertList.keys()
