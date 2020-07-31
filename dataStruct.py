@@ -176,4 +176,67 @@ class BinaryTree:
     
     def getLeftChild(self):
         return self.leftChild
-        
+
+
+# 定义如下：
+# Graph() : 创建一个空图
+# addVertex(vert) : 将顶点vert加入图中
+# addEdge(fromVert, toVert) : 添加有向边
+# addEdge(fromVert, toVert, weight):添加带权的有向边
+# getVertex(vKey) : 查找名称为vKey的顶点
+# getVertices() : 返回图中所有顶点列表
+# in : 按照vert in graph的语句形式，返回顶点是否存在图中True/False
+
+# 图的邻接列表的实现
+class Vertex:
+    def __init__(self,key):
+        self.id = key
+        self.connectedTo = {}
+    # 添加一条边
+    def addNeighbor(self,nbr,weight=0):
+        self.connectedTo[nbr] = weight
+    
+    def getConnections(self):
+        return self.connectedTo.keys()
+    
+    def getId(self):
+        return self.id
+    
+    def getWeigth(self,nbr):
+        return self.connectedTo[nbr]
+
+    def __str__(self):
+        return str(self.id) + ' connectedTo: ' + str([x.id for x in self.connectedTo])
+
+class Graph:
+    def __init__(self):
+        self.vertList = {}
+        self.numVertices = 0
+    
+    def addVertex(self,key):
+        self.numVertices = self.numVertices + 1
+        newVertex = Vertex(key)
+        self.vertList[key] = newVertex
+        return newVertex
+
+    def getVertex(self,key):
+        if key in self.vertList:
+            return self.vertList[key]
+        else:
+            return None
+    
+    def __contains__(self,n):
+        return n in self.vertList
+    
+    def addEdge(self,f,to,weight=0):
+        if  f not in self.vertList
+            self.addVertex(f)
+        if to not in self.vertList:
+            self.addVertex(to)
+        self.vertList[f].addNeighbor(self.vertList[t],weight)
+
+    def getVertices(self):
+        return self.vertList.keys()
+
+    def __iter__(self):
+        return iter(self.vertList.values())        
